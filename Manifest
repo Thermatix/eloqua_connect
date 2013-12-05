@@ -1,5 +1,11 @@
 LICENCE/GPL-2
+Manifest
 README.md
 Rakefile
+eloqua_connect.gemspec
 lib/eloqua_connect.rb
-Manifest
+lib/main/base.rb
+lib/main/config.rb
+lib/main/model.rb
+lib/main/modelsetup.rb
+lib/main/modules/fields.rb
