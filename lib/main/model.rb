@@ -21,11 +21,14 @@ module EloquaConnect
     def method_missing(meth,*args,&block)
       searching = EloquaConnect::Config.extend_fields[:"meth"] if EloquaConnect::Config.extend_fields[:"meth"]
       searching = FIELDS[:"#{meth}"] if FIELDS[:"#{meth}"]
+      method_found = false
       self.fields.each do |field|
          if field[:id] == searching
           field[:value] = args.first
+          method_found = true
          end
       end
+      super if !method_found
     end
 
     def save
