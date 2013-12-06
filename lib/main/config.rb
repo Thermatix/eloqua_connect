@@ -1,9 +1,9 @@
-require_relative 'modules/fields'
 module EloquaConnect
   class Config < Base
     include ContactFields
-    def intialize
+    def initialize
       yield(self)
+      self.extendFields ||= {}
       self.client = Eloqua::RESTClient.new({
         site: self.company,
         username: self.username,

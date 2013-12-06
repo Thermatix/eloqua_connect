@@ -1,6 +1,6 @@
 module EloquaConnect
   class ModelSetup < Base
-    def intialize
+    def initialize
       yield(self)
       temp = []
       self.fields.each do |field|

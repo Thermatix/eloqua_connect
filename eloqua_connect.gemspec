@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Becker"]
-  s.date = "2013-12-05"
+  s.date = "2013-12-06"
   s.description = "push data to eloqua with model like behavior"
   s.email = "mbeckerwork@gmail.com"
   s.extra_rdoc_files = ["README.md", "lib/eloqua_connect.rb", "lib/main/base.rb", "lib/main/config.rb", "lib/main/model.rb", "lib/main/modelsetup.rb", "lib/main/modules/fields.rb"]
