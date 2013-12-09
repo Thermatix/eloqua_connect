@@ -16,6 +16,7 @@ module EloquaConnect
           self.send("#{key}=",value)
         end
       end
+      self.errors = []
     end
 
     def method_missing(meth,*args,&block)
@@ -36,13 +37,12 @@ module EloquaConnect
 
     def save
       results = Object.const_get("EQC_config").client.send("create_#{self.modelType.downcase}",sending)
-      ap results
-      case results.first["type"]
-        when "ObjectValidationError"
-          r = results.first
-          raise "Eloqua REST API #{r["type"]}, property:#{r["property"]}, requirement: #{r["requirement"]["type"]}}"
+      if results.is_a?(Array)
+        r = results.first
+       self.errors << "Eloqua Rest API Error, #{r["type"]}, property:#{r["property"]}, requirement: #{r["requirement"]["type"]}"
+       return false
       else
-        true
+        return true
       end
     end
 
@@ -50,16 +50,17 @@ module EloquaConnect
       def sending
         id = FIELDS[:emailAddress]
         email = ""
+        f = self.fields.dup
         self.fields.each_with_index do |field,i|
           if field[:id] == id
             email = field[:value]
-            self.fields.delete_at(i)
+            f.delete_at(i)
           end
         end
         if email
-          hash = {emailAddress: email, fieldValues: self.fields}
+          hash = {emailAddress: email, fieldValues: f}
         else
-          hash = {fieldValues: self.fields}
+          hash = {fieldValues: f}
         end
         return hash
       end

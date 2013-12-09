@@ -123,5 +123,4 @@ module EloquaConnect
        contactType: 100270
       }
   end
-
 end
