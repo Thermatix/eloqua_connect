@@ -7,8 +7,12 @@ module EloquaConnect
           self.fields = model.fields.dup
           self.modelType = model.modelType
         else
-          raise "no matching models"
+          raise "no matching modelsetup"
         end
+      end
+
+      if self.modelType == "contact"
+        include ContactQueryMethods
       end
 
       if hash_to_pass
@@ -37,6 +41,7 @@ module EloquaConnect
 
     def save
       results = Object.const_get("EQC_config").client.send("create_#{self.modelType.downcase}",sending)
+      ap results
       if results.is_a?(Array)
         r = results.first
        self.errors << "Eloqua Rest API Error, #{r["type"]}, property:#{r["property"]}, requirement: #{r["requirement"]["type"]}"

@@ -10,7 +10,7 @@ Echoe.new('eloqua_connect','0.0') do |p|
   p.author = 'Martin Becker'
   p.email = 'mbeckerwork@gmail.com'
   p.ignore_pattern = []
-  p.runtime_dependencies =['eloqua_api ~>0.0.7']
+  p.runtime_dependencies =['eloqua_api ~>0.0.9']
   p.development_dependencies =[]
 end
 
