@@ -22,7 +22,7 @@ in the initializer folder and copy and paste the following into the top:
     require 'eloqua_connect'
     include EloquaConnect::ContactFields
 
-The first require eloqua_connect, the second gives you access to the data fields, that you can use to store data in.
+The first loads the gem, the second gives you access to the data fields, that you can use to store data in.
 
 This is an example config:
 
