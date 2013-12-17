@@ -3,4 +3,30 @@ require 'main/base'
 require 'main/config'
 require 'main/modelsetup'
 require 'main/model'
-require 'awesome_print'
+
+module EloquaConnect
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+    self.configuration.post_setup
+  end
+
+  class Configuration
+    attr_accessor :company, :username, :password, :extendFields, :client, :models
+    def initialize
+      self.extendFields ||= {}
+    end
+
+    def post_setup
+      self.client = Eloqua::RESTClient.new({
+        site: self.company,
+        username: self.username,
+        password: self.password })
+    end
+  end
+end
+

@@ -3,7 +3,8 @@ module EloquaConnect
     include ContactFields
     include ContactQueryMethods
     def initialize hash_to_pass=nil
-      Object.const_get("EQC_config").models.each do |model|
+
+      EloquaConnect.configuration.models.each do |model|
         if self.class.name == model.modelName
           self.fields = model.fields.dup
           self.modelType = model.modelType
@@ -23,7 +24,7 @@ module EloquaConnect
 
     def method_missing(meth,*args,&block)
       m = meth.to_s.gsub("=","")
-      t = Object.const_get("EQC_config")
+      t = EloquaConnect.configuration
       searching = t.extendFields[:"#{m}"] || nil
       searching = FIELDS[:"#{m}"] || nil
       if searching
@@ -38,7 +39,7 @@ module EloquaConnect
     end
 
     def save
-      results = Object.const_get("EQC_config").client.send("create_#{self.modelType.downcase}",sending)
+      results = EloquaConnect.configuration.client.send("create_#{self.modelType.downcase}",sending)
       ap results
       if results.is_a?(Array)
         r = results.first

@@ -76,7 +76,7 @@ module EloquaConnect
       end
 
       def get_client
-        Object.const_get("EQC_config").client
+        EloquaConnect.configuration.client
       end
 
       def model_is_contact?

@@ -24,10 +24,9 @@ in the initializer folder and copy and paste the following into the top:
 
 The first require eloqua_connect, the second gives you access to the data fields, that you can use to store data in.
 
-whatever config you use, you **MUST** store the config in a constant called 'EQC_config' if you don't the models won't be able to find the config and thus won't function.
 This is an example config:
 
-    EQC_config = EloquaConnect::Config.new do |config|
+    EloquaConnect.configure do |config|
       config.company = ENV['E_SITE']
       config.username = ENV['E_USER']
       config.password = ENV['E_PASSWORD']
@@ -48,15 +47,15 @@ This is an example config:
     end
 
 The first three config options are self explanatory, models is where you pass the model setup objects.
-you need to pass a ModelSetup for every eloqua model you intend to use.
+You need to pass a ModelSetup object for every eloqua model you intend to use.
 
-The first thing you can pass are the fields you intend to use which are pulled from the FIELDS constant, the full list of available fields will be at the bottom of this readme.
+The first thing you can pass are the fields you intend to use which are pulled from the 'FIELDS' constant, the full list of available fields will be at the bottom of this readme.
 
 The next is the model name, this will be used to match it to the model class, it needs to be spelt exactly as the class name is spelt.
 
 The last thing is the model Type, for the moment, Eloqua connect only supports the saving and pulling of contact data.
 
-Since Models using Eloqua Connect don't use Active model, it's better to place them into the lib directory of your rails directory and then require that model in the controller you are using it in, that way you keep them separate.
+Since Models using Eloqua Connect don't use Active model, it's better to place them into the lib directory of your rails directory and then require that model in the controller you are using it in, that way you keep them separate from any Active Model based models.
 
 The model file is simple to setup, the example is as follows:
 
