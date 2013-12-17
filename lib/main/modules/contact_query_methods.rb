@@ -29,7 +29,6 @@ module EloquaConnect
     private
       def format results, by_email
         fields_values = get_results(results,by_email)
-        ap fields_values['fieldValues']
         if fields_values
           temp_fields = self.fields.dup.sort_by {|i| i[:id]}
           temp_fields.each do |a|
@@ -52,17 +51,6 @@ module EloquaConnect
         else
           searching_by = by_email ? "email Address" : "ID"
           self.errors << "No contact exists with that #{searching_by}"
-        end
-      end
-
-      def format2 results, by_email
-        fields_values = get_results(results,by_email)
-        self.fields.each do |field|
-          fields_values.each do |fv|
-            if field[:id] == fv["id"]
-              field[:value] = fv["value"]
-            end
-          end
         end
       end
 
