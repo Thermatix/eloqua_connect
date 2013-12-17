@@ -72,7 +72,11 @@ for example:
     @user = PayPalToEloqua.new(user_params)
     @user.save
 
-Remember, the params need to match the symbols you are using in the fields, ie if you are using 'FIELDS[:leadSourceOriginal]' then in the hash you pass to the new object would use:
+Remember, the params need to match the symbols you are using in the fields, ie if you are using
+
+    FIELDS[:leadSourceOriginal]
+
+then in the hash you pass to the new object would use:
 
     { leadSourceOriginal: 'some data' }
 
