@@ -1,6 +1,7 @@
 module EloquaConnect
   class Model < Base
     include ContactFields
+    include ContactQueryMethods
     def initialize hash_to_pass=nil
       Object.const_get("EQC_config").models.each do |model|
         if self.class.name == model.modelName
@@ -11,9 +12,6 @@ module EloquaConnect
         end
       end
 
-      if self.modelType == "contact"
-        include ContactQueryMethods
-      end
 
       if hash_to_pass
         hash_to_pass.each do |key,value|

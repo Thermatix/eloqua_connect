@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Becker"]
-  s.date = "2013-12-10"
+  s.date = "2013-12-11"
   s.description = "push data to eloqua with model like behavior"
   s.email = "mbeckerwork@gmail.com"
-  s.extra_rdoc_files = ["README.md", "lib/eloqua_connect.rb", "lib/main/base.rb", "lib/main/config.rb", "lib/main/model.rb", "lib/main/modelsetup.rb", "lib/main/modules/fields.rb"]
-  s.files = ["LICENCE/GPL-2", "Manifest", "README.md", "Rakefile", "eloqua_connect.gemspec", "lib/eloqua_connect.rb", "lib/main/base.rb", "lib/main/config.rb", "lib/main/model.rb", "lib/main/modelsetup.rb", "lib/main/modules/fields.rb"]
+  s.extra_rdoc_files = ["README.md", "lib/eloqua_connect.rb", "lib/main/base.rb", "lib/main/config.rb", "lib/main/model.rb", "lib/main/modelsetup.rb", "lib/main/modules/contact_query_methods.rb", "lib/main/modules/fields.rb"]
+  s.files = ["LICENCE/GPL-2", "Manifest", "README.md", "Rakefile", "eloqua_connect.gemspec", "lib/eloqua_connect.rb", "lib/main/base.rb", "lib/main/config.rb", "lib/main/model.rb", "lib/main/modelsetup.rb", "lib/main/modules/contact_query_methods.rb", "lib/main/modules/fields.rb"]
   s.homepage = "https://github.com/Thermatix/eloqua_connect"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Eloqua_connect", "--main", "README.md"]
   s.require_paths = ["lib"]

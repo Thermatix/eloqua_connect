@@ -8,4 +8,5 @@ lib/main/base.rb
 lib/main/config.rb
 lib/main/model.rb
 lib/main/modelsetup.rb
+lib/main/modules/contact_query_methods.rb
 lib/main/modules/fields.rb

@@ -3,18 +3,18 @@ module EloquaConnect
   module ContactQueryMethods
 
     def find_by_email val
-      client = Object.const_get("EQC_config").client
+      raise "Can Only search by email on contact type models"if !model_is_contact?
+      client = get_client
       results = client.find_contact_by_email(val,{depth: "complete"})
-      ap Benchmark.measure {format1(results)}
-      ap Benchmark.measure {format2(results)}
-      format_1(results)
+      format(results,true)
       return self
     end
 
     def find_by_id val, options={}
-      client = Object.const_get("EQC_config").client)
+      raise "Can Only search by id on contact type models(for now)"if !model_is_contact?
+      client = get_client
       results = client.get_contact(val,{depth: "complete"})
-      format1(results)
+      format(results,false)
       return self
     end
 
@@ -27,23 +27,60 @@ module EloquaConnect
     end
 
     private
-      def format_1 results
-        fields_values = results["elements"].first["fieldValues"]
-        temp_fields = self.fields.dup.sort_by {|i| i[:id]}
-        temp_fields.each do |a|
-          a[:value] = field_values.detect{|b| a[:id] == b["id"] }["value"]
+      def format results, by_email
+        fields_values = get_results(results,by_email)
+        ap fields_values['fieldValues']
+        if fields_values
+          temp_fields = self.fields.dup.sort_by {|i| i[:id]}
+          temp_fields.each do |a|
+            if a[:id] < 100005
+              case a[:id]
+                when 100001
+                  a[:value] = fields_values['emailAddress']
+                when 100002
+                  a[:value] = fields_values['firstName']
+                when 100003
+                  a[:value] = fields_values['lastName']
+                when 100004
+                  a[:value] = "not implimented yetfind"
+              end
+            else
+              a[:value] = fields_values['fieldValues'].detect{|b| a[:id].to_s == b["id"].to_s }["value"]
+            end
+          end
+          self.fields = temp_fields
+        else
+          searching_by = by_email ? "email Address" : "ID"
+          self.errors << "No contact exists with that #{searching_by}"
         end
-        self.fields = temp_fields
       end
 
-      def format_2 results
-        fields_values = results["elements"].first["fieldValues"]
+      def format2 results, by_email
+        fields_values = get_results(results,by_email)
         self.fields.each do |field|
           fields_values.each do |fv|
-           field[:value] = fv['value'] if field[:id] == fv["id"]
+            if field[:id] == fv["id"]
+              field[:value] = fv["value"]
+            end
           end
         end
       end
 
+      def get_results results, by_email
+        if by_email
+          temp = results["elements"].first
+        else
+          temp =  results
+        end
+        return temp
+      end
+
+      def get_client
+        Object.const_get("EQC_config").client
+      end
+
+      def model_is_contact?
+        self.modelType == "contact"
+      end
   end
 end
