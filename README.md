@@ -70,8 +70,8 @@ You can now use it as you would any other model object.
 
 for example:
 
-  @user = PayPalToEloqua.new(user_params)
-  @user.save
+ @user = PayPalToEloqua.new(user_params)
+ @user.save
 
 Remember, the params need to match the symbols you are using in the fields, ie if you are using 'FIELDS[:leadSourceOriginal]' then in the hash you pass to the new object would use:
 
