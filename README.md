@@ -27,9 +27,9 @@ The first loads the gem, the second gives you access to the data fields, that yo
 This is an example config:
 
     EloquaConnect.configure do |config|
-      config.company = ENV['E_SITE']
-      config.username = ENV['E_USER']
-      config.password = ENV['E_PASSWORD']
+      config.company = 'massiveSoft_ltd'
+      config.username = 'Joe_Blogs'
+      config.password = '1some2awesome3pasword'
       config.models = [
                       EloquaConnect::ModelSetup.new do |mod|
                         mod.fields = [
