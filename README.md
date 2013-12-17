@@ -13,6 +13,8 @@ Eloqua Connect is a mechanism to push and pull data to eloqua but with model lik
 
 That is an example of how you would save and modify data, just like you would a traditional rails model.
 
+just an FYI, contact.save will save to Eloqua using the credentials you supply in the config.
+
 Setting up the models
 ---------------------
 
