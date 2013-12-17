@@ -63,14 +63,14 @@ The model file is simple to setup, the example is as follows:
 
     end
 
-The model needs to named **EXACTLY** as it's spelt in the model name for the model setup object you're trying to match it to, if you don't it won't work.
+The model needs to named **EXACTLY** as it's spelt, capitals in the exact same places as in the model name for the model setup object you're trying to match it to, if you don't it won't match up properly.
 
 You can now use it as you would any other model object.
 
 for example:
 
-   @user = PayPalToEloqua.new(user_params)
-   @user.save
+    @user = PayPalToEloqua.new(user_params)
+    @user.save
 
 Remember, the params need to match the symbols you are using in the fields, ie if you are using 'FIELDS[:leadSourceOriginal]' then in the hash you pass to the new object would use:
 
