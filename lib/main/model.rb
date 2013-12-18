@@ -2,6 +2,8 @@ module EloquaConnect
   class Model < Base
     include ContactFields
     include ContactQueryMethods
+
+
     def initialize hash_to_pass=nil
 
       EloquaConnect.configuration.models.each do |model|
@@ -12,7 +14,6 @@ module EloquaConnect
           raise "no matching modelsetup"
         end
       end
-
 
       if hash_to_pass
         hash_to_pass.each do |key,value|
@@ -40,11 +41,22 @@ module EloquaConnect
 
     def save
       results = EloquaConnect.configuration.client.send("create_#{self.modelType.downcase}",sending)
-      ap results
       if results.is_a?(Array)
         r = results.first
-       self.errors << "Eloqua Rest API Error, #{r["type"]}, property:#{r["property"]}, requirement: #{r["requirement"]["type"]}"
+       self.errors << results
        return false
+      else
+        return true
+      end
+    end
+
+    def update
+      raise "No ID detected, can't save unless object has ID" if !self.id
+      results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id.to_i,sending)
+      if results.is_a?(Array)
+        r = results.first
+        self.errors << results
+        return false
       else
         return true
       end
@@ -52,11 +64,11 @@ module EloquaConnect
 
     private
       def sending
-        id = FIELDS[:emailAddress]
+        emailID = FIELDS[:emailAddress]
         email = ""
         f = self.fields.dup
         self.fields.each_with_index do |field,i|
-          if field[:id] == id
+          if field[:id] == emailID
             email = field[:value]
             f.delete_at(i)
           end

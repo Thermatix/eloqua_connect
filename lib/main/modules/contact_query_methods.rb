@@ -47,6 +47,7 @@ module EloquaConnect
               a[:value] = fields_values['fieldValues'].detect{|b| a[:id].to_s == b["id"].to_s }["value"]
             end
           end
+          self.id = fields_values['fieldValues'].detect { |b| b['id'] == "100032"  }["value"].gsub(/^CPPPL0*/,"")
           self.fields = temp_fields
         else
           searching_by = by_email ? "email Address" : "ID"

@@ -7,6 +7,7 @@ module EloquaConnect
         temp << { id: field, value: "" }
       end
       self.fields = temp
+      self.modelName.freeze
     end
   end
 end
