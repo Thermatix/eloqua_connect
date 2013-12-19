@@ -9,3 +9,5 @@ lib/main/model.rb
 lib/main/modelsetup.rb
 lib/main/modules/contact_query_methods.rb
 lib/main/modules/fields.rb
+lib/main/monkey_patch/modules/external_activity.rb
+lib/main/monkey_patch/rest_client.rb

@@ -2,6 +2,7 @@ Dir[File.dirname(__FILE__) + '/main/modules/*.rb'].each {|file| require file }
 require 'main/base'
 require 'main/modelsetup'
 require 'main/model'
+require 'main/monke_patch/rest_client'
 
 module EloquaConnect
   class << self
