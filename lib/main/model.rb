@@ -54,7 +54,7 @@ module EloquaConnect
       raise "No ID detected, can't save unless object has ID" if !self.id
       s = sending
       ap s
-      results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id.to_i,s)
+      results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id,s)
       if results.is_a?(Array)
         r = results.first
         self.errors << results
