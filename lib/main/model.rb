@@ -52,7 +52,9 @@ module EloquaConnect
 
     def update
       raise "No ID detected, can't save unless object has ID" if !self.id
-      results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id.to_i,sending)
+      s = sending
+      ap s
+      results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id.to_i,s)
       if results.is_a?(Array)
         r = results.first
         self.errors << results
@@ -64,21 +66,27 @@ module EloquaConnect
 
     private
       def sending
-        emailID = FIELDS[:emailAddress]
-        email = ""
-        f = self.fields.dup
-        self.fields.each_with_index do |field,i|
-          if field[:id] == emailID
-            email = field[:value]
-            f.delete_at(i)
+        case self.modelType
+        when "external_activity"
+          hash = self.fields
+        else
+          emailID = FIELDS[:emailAddress]
+          email = ""
+          f = self.fields.dup
+          self.fields.each_with_index do |field,i|
+            if field[:id] == emailID
+              email = field[:value]
+              f.delete_at(i)
+            end
+          end
+          if email
+            hash = {emailAddress: email, fieldValues: f}
+          else
+            hash = {fieldValues: f}
           end
         end
-        if email
-          hash = {emailAddress: email, fieldValues: f}
-        else
-          hash = {fieldValues: f}
-        end
         return hash
+
       end
 
       def get_field searching, setting=false, value=""

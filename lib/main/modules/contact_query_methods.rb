@@ -11,9 +11,8 @@ module EloquaConnect
     end
 
     def find_by_id val, options={}
-      raise "Can Only search by id on contact type models(for now)"if !model_is_contact?
       client = get_client
-      results = client.get_contact(val,{depth: "complete"})
+      results = client.send("get_#{self.modelType}",val,{depth: "complete"})
       format(results,false)
       return self
     end

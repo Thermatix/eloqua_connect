@@ -4,6 +4,7 @@ require 'main/modelsetup'
 require 'main/model'
 require 'main/monkey_patch/rest_client'
 
+
 module EloquaConnect
   class << self
     attr_accessor :configuration

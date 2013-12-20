@@ -3,8 +3,23 @@ module EloquaConnect
     def initialize
       yield(self)
       temp = []
-      self.fields.each do |field|
-        temp << { id: field, value: "" }
+      case self.modelType
+        when "external_activity"
+          temp = {
+              type: "",
+              id: "", depth: "",
+              name: "",
+              activityDate: "",
+              activityType: "",
+              assetName: "",
+              assetType: "",
+              contactId: "",
+              campaignId: ""
+            }
+        else
+          self.fields.each do |field|
+            temp << { id: field, value: "" }
+          end
       end
       self.fields = temp
       self.modelName.freeze
