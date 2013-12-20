@@ -13,7 +13,7 @@ module EloquaConnect
     def find_by_id val, options={}
       client = get_client
       results = client.send("get_#{self.modelType}",val,{depth: "complete"})
-      format(results,false)
+      format(results,false)+
       return self
     end
 

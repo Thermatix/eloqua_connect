@@ -9,7 +9,7 @@ module EloquaConnect
 
       EloquaConnect.configuration.models.each do |model|
         if self.class.name == model.modelName
-          self.fields = model.fields.dup
+          self.fields = model.fields.clone
           self.modelType = model.modelType
         else
           raise "no matching modelsetup"
