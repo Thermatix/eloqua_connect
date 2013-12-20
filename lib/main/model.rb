@@ -1,3 +1,4 @@
+require 'json'
 module EloquaConnect
   class Model < Base
     include ContactFields
@@ -53,7 +54,7 @@ module EloquaConnect
     def update
       raise "No ID detected, can't save unless object has ID" if !self.id
       s = sending
-      ap s
+      ap s.to_json
       results = EloquaConnect.configuration.client.send("update_#{self.modelType.downcase}",self.id,s)
       if results.is_a?(Array)
         r = results.first
