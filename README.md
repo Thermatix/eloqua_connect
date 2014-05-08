@@ -1,6 +1,8 @@
 Eloqua Connect
 ==============
 
+#<b>This gem has been abandonded, use at your own risk<b>
+
 Eloqua Connect is a mechanism to push and pull data to eloqua but with model like mechanism for doing so. For example:
 
     contact = Contact.new(contact_hash)
